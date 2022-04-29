@@ -46,10 +46,10 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        context: ./html
-        file: ./html/Dockerfile
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/cardgame:latest
+        image: NiceOnion/CardGame
+        tags: latest
+        registry: docker.io
+        dockerfile: ./html/Dockerfile
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}

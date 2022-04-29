@@ -1,13 +1,32 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+
+import java.awt.*;
 
 public class GameScreen implements Screen {
 
 final MyGdxGame game;
 
+    private Texture backGroundImage;
+    private Texture ArcherImage;
+    private Texture WarriorImage;
+    private OrthographicCamera camera;
+    private Rectangle Archer;
+    private Rectangle Warrior;
+
     public GameScreen(final MyGdxGame game){
         this.game = game;
+
+        backGroundImage = new Texture(Gdx.files.internal("CGBattleground.jpg"));
+        ArcherImage = new Texture(Gdx.files.internal("CGArcher01.jpg"));
+        WarriorImage = new Texture(Gdx.files.internal("CGWarrior01.png"));
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 800, 480);
     }
 
     @Override
