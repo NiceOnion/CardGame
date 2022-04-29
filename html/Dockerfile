@@ -3,7 +3,6 @@ FROM alpine:3.9
 RUN apk add figlet
 
 CMD ["figlet", "-w", "1000", "Hello, world!"]
-$ docker build -t <your_account_name_here>/hello-world .
 
 # V Old code V
 #FROM openjdk:8-jre-slim as production
