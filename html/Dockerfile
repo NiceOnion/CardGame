@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim as production
+FROM openjdk:8-jre-slim as build
 
 EXPOSE 8080
 
