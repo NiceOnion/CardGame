@@ -1,6 +1,8 @@
-FROM busybox
+FROM alpine:3.9
 
-CMD echo "Hello world! This is my first Docker image."
+RUN apk add figlet
+
+CMD ["figlet", "-w", "1000", "Hello, world!"]
 
 # V Old code V
 #FROM openjdk:8-jre-slim as production
