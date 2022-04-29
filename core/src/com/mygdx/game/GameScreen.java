@@ -5,8 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.awt.*;
-
 public class GameScreen implements Screen {
 
 final MyGdxGame game;
@@ -15,8 +13,7 @@ final MyGdxGame game;
     private Texture ArcherImage;
     private Texture WarriorImage;
     private OrthographicCamera camera;
-    private Rectangle Archer;
-    private Rectangle Warrior;
+
 
     public GameScreen(final MyGdxGame game){
         this.game = game;
