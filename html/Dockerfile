@@ -1,9 +1,9 @@
-FROM openjdk:8-jre-slim as production
+FROM openjdk:8 as build
 
 EXPOSE 8080
 
-RUN mkdir /app
+ADD --from=build /app/target/webapp.war webapp.war
 
-COPY --from=build /app/target/spring-petclinic-*.jar /spring-petclinic.jar
+Add --from=build /app/target/CardGame-core. Cardgame-core.
 
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/spring-petclinic.jar"]
+CMD ["java", "-jar", "-war", "/Cardgame.jar"]
