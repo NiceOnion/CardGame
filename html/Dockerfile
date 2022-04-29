@@ -1,9 +1,14 @@
-FROM openjdk:8-jre-slim as production
+From busybox
 
-EXPOSE 8080
+CMD echo "Hello world! This is my first Docker image."
 
-RUN mkdir /app
+# V Old code V
+#FROM openjdk:8-jre-slim as production
 
-COPY --from=build /app/target/spring-petclinic-*.jar /spring-petclinic.jar
+#EXPOSE 8080
 
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/spring-petclinic.jar"]
+#RUN mkdir /app
+
+#COPY --from=build /app/target/spring-petclinic-*.jar /spring-petclinic.jar
+
+#CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/spring-petclinic.jar"]
