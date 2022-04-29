@@ -2,8 +2,6 @@ FROM openjdk:8
 
 EXPOSE 8080
 
-ADD /app/target/webapp.war webapp.war
+ADD ./build/libs/html-1.0.jar html-1.0.jar
 
-ADD /app/target/CardGame-core. Cardgame-core.
-
-CMD ["java", "-jar", "-war", "/Cardgame.jar"]
+ENTRYPOINT ["java" , "-jar", "build/html-1.0.jar"]
