@@ -1,63 +1,48 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
-public class GameScreen implements Screen {
+public class GameScreen extends ScreenAdapter {
+    private final OrthographicCamera camera;
+    private final SpriteBatch sBatch;
+    private final World world;
+    private Box2DDebugRenderer boxRenderer;
 
-final MyGdxGame game;
+    public GameScreen(OrthographicCamera camera){
+        this.camera = camera;
+        this.camera.position.set(new Vector3(MyGdxGame.INSTANCE.getScreenWidth() / 2, MyGdxGame.INSTANCE.getScreenHeight() / 2, 0));
+        sBatch = new SpriteBatch();
+        this.world = new World(new Vector2(0,0), false);
+        this.boxRenderer = new Box2DDebugRenderer();
+    }
 
-    private Texture backGroundImage;
-    private Texture ArcherImage;
-    private Texture WarriorImage;
-    private OrthographicCamera camera;
+    public void update(){
+        world.step(1/60f,6,2);
+        sBatch.setProjectionMatrix(camera.combined);
 
-
-    public GameScreen(final MyGdxGame game){
-        this.game = game;
-
-        backGroundImage = new Texture(Gdx.files.internal("CGBattleground.jpg"));
-        ArcherImage = new Texture(Gdx.files.internal("CGArcher01.jpg"));
-        WarriorImage = new Texture(Gdx.files.internal("CGWarrior01.png"));
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            Gdx.app.exit();
+        }
     }
 
     @Override
-    public void show() {
+    public void render(float delta){
+        update();
 
-    }
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    @Override
-    public void render(float delta) {
+        sBatch.begin();
 
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
+        sBatch.end();
     }
 }

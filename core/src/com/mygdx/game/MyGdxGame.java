@@ -1,26 +1,34 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class MyGdxGame extends Game {
-	public SpriteBatch batch;
-	public BitmapFont font;
 
-	public void create () {
-		batch = new SpriteBatch();
-		font = new BitmapFont();
-		this.setScreen(new StartScreen(this));
+	public static MyGdxGame INSTANCE;
+	private int screenWidth, screenHeight;
+	private OrthographicCamera camera;
+
+	public MyGdxGame(){
+		INSTANCE = this;
 	}
 
-	public void render()
-	{
-		super.render();
+	@Override
+	public void create() {
+		this.screenHeight = Gdx.graphics.getHeight();
+		this.screenWidth = Gdx.graphics.getWidth();
+		this.camera = new OrthographicCamera();
+		this.camera.setToOrtho(false,screenWidth,screenHeight);
+
+		setScreen(new GameScreen(camera));
 	}
 
-	public void dispose() {
-		batch.dispose();
-		font.dispose();
+	public int getScreenWidth() {
+		return screenWidth;
+	}
+
+	public int getScreenHeight() {
+		return screenHeight;
 	}
 }
