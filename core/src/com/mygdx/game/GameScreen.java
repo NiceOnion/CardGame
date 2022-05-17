@@ -46,7 +46,7 @@ public class GameScreen extends ScreenAdapter {
         this.ball = new Ball(this);
         this.wallTop = new Wall(32, this);
         this.wallBottem = new Wall(MyGdxGame.INSTANCE.getScreenHeight() - 32, this);
-        this.numbers = LoadTextureSprite("Numbers.png", 10);
+        this.numbers = LoadTextureSprite("numbers.png", 10);
     }
 
     public void update(){

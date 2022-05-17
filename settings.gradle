@@ -1,1 +1,4 @@
 include 'desktop', 'html', 'core'
+include ':CardGameBackend'
+
+project(':CardGameBackend').projectDir = file('C:\\Users\\Julia\\IdeaProjects\\CardGameBackend')
