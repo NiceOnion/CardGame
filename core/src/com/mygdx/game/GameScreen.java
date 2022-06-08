@@ -12,10 +12,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 //import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Object.Ball;
-import com.mygdx.game.Object.Player;
-import com.mygdx.game.Object.PlayerAI;
-import com.mygdx.game.Object.Wall;
+import com.mygdx.game.Object.*;
+
+import java.util.HashMap;
 
 public class GameScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
@@ -24,6 +23,7 @@ public class GameScreen extends ScreenAdapter {
 
     //Player objects
     private final Player player;
+    //private HashMap<String, PlayerPaddle>
     private final PlayerAI playerAI;
     private final Ball ball;
     private final Wall wallTop, wallBottem;
