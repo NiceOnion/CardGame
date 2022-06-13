@@ -1,3 +1,5 @@
 <?xml version="1.0" ?>
 <web-app>
+    <inherits name='com.github.czyzby.websocket.GdxWebSocket' />
+    <inherits name='com.github.czyzby.websocket.GdxWebSocketGwt' />
 </web-app>

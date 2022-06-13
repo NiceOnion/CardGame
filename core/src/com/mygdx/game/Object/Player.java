@@ -2,6 +2,7 @@ package com.mygdx.game.Object;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.GameScreen;
 
 public class Player extends PlayerPaddle{

@@ -12,18 +12,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 //import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Object.Ball;
-import com.mygdx.game.Object.Player;
-import com.mygdx.game.Object.PlayerAI;
-import com.mygdx.game.Object.Wall;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.Object.*;
+
+import java.util.HashMap;
+
+import static com.mygdx.game.MyGdxGame.INSTANCE;
+import static java.lang.Float.parseFloat;
 
 public class GameScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final SpriteBatch sBatch;
     private final World world;
-
     //Player objects
     private final Player player;
+    public HashMap<String, PlayerPaddle> opponent;
     private final PlayerAI playerAI;
     private final Ball ball;
     private final Wall wallTop, wallBottem;
@@ -33,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(OrthographicCamera camera){
         this.camera = camera;
-        this.camera.position.set(new Vector3((float)MyGdxGame.INSTANCE.getScreenWidth() / 2, (float)MyGdxGame.INSTANCE.getScreenHeight() / 2, 0));
+        this.camera.position.set(new Vector3((float) INSTANCE.getScreenWidth() / 2, (float) INSTANCE.getScreenHeight() / 2, 0));
         sBatch = new SpriteBatch();
         this.world = new World(new Vector2(0,0), false);
         //this.boxRenderer = new Box2DDebugRenderer();
@@ -41,11 +45,12 @@ public class GameScreen extends ScreenAdapter {
         GameContactListener gameContactListener = new GameContactListener(this);
         this.world.setContactListener(gameContactListener);
 
-        this.player = new Player(16, (float)MyGdxGame.INSTANCE.getScreenHeight()/2, this);
-        this.playerAI = new PlayerAI( MyGdxGame.INSTANCE.getScreenWidth() - 16, (float)MyGdxGame.INSTANCE.getScreenHeight()/2, this);
+        this.player = new Player(16, (float) INSTANCE.getScreenHeight()/2, this);
+        this.playerAI = new PlayerAI( INSTANCE.getScreenWidth() - 16, (float) INSTANCE.getScreenHeight()/2, this);
+        opponent = new HashMap<String, PlayerPaddle>();
         this.ball = new Ball(this);
         this.wallTop = new Wall(32, this);
-        this.wallBottem = new Wall(MyGdxGame.INSTANCE.getScreenHeight() - 32, this);
+        this.wallBottem = new Wall(INSTANCE.getScreenHeight() - 32, this);
         this.numbers = LoadTextureSprite("numbers.png", 10);
     }
 
@@ -80,16 +85,21 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        INSTANCE.UpdateServer(Gdx.graphics.getDeltaTime());
+
         sBatch.begin();
 
         this.player.Render(sBatch);
         this.ball.Render(sBatch);
         this.wallBottem.Render(sBatch);
         this.wallTop.Render(sBatch);
+        for (HashMap.Entry<String, PlayerPaddle> entry: opponent.entrySet()){
+            entry.getValue().draw(sBatch);
+        }
         this.playerAI.Render(sBatch);
 
-        drawNumbers(sBatch, player.getScore(), 64, MyGdxGame.INSTANCE.getScreenHeight() - 55 );
-        drawNumbers(sBatch, playerAI.getScore(), MyGdxGame.INSTANCE.getScreenWidth() - 96, MyGdxGame.INSTANCE.getScreenHeight() - 55);
+        drawNumbers(sBatch, player.getScore(), 64, INSTANCE.getScreenHeight() - 55 );
+        drawNumbers(sBatch, playerAI.getScore(), INSTANCE.getScreenWidth() - 96, INSTANCE.getScreenHeight() - 55);
 
         sBatch.end();
 
